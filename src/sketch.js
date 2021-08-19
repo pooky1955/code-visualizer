@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/styles";
 import { ContentDisplayer } from "./ContentDisplayer";
 const useStyles = makeStyles({
@@ -25,28 +25,35 @@ export const Visualizer = ({ allSteps }) => {
   const classes = useStyles();
   const totalSteps = allSteps.length || 0;
   const [index, setIndex] = useState(1);
+  useEffect(() => {
+    setIndex(Math.min(index+1,totalSteps))
+  }, [totalSteps])
   const handleNext = () => {
     setIndex(Math.min(index + 1, totalSteps));
   };
   const handlePrev = () => {
     setIndex(Math.max(index - 1, 1));
   };
-  console.log(allSteps[index])
+  console.log(allSteps[index]);
   return (
     <div className={classes.container}>
       <div className={classes.buttonContainer}>
         <button onClick={handlePrev} className={classes.button}>
           Previous
         </button>
-        <div className={classes.stepIndicator}>
-          Step {index} of {totalSteps}
-        </div>
+        {totalSteps == 0 ? (
+          <div></div>
+        ) : (
+          <div className={classes.stepIndicator}>
+            Step {index} of {totalSteps}
+          </div>
+        )}
         <button onClick={handleNext} className={classes.button}>
           Next
         </button>
       </div>
       <div className={classes.content}>
-        <ContentDisplayer content={allSteps[index-1] || null} />
+        <ContentDisplayer content={allSteps[index - 1] || null} />
       </div>
     </div>
   );

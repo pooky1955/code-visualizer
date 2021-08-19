@@ -15,8 +15,12 @@ button {
   transition-duration: 300ms;
 
 }
+
 button:hover {
+  filter : brightness(90%);
+  cursor : pointer;
+}
+button:active {
   transform : scale(96%);
   transition-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
-  cursor : pointer;
 }
